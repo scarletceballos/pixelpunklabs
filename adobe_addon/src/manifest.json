@@ -1,0 +1,31 @@
+{
+    "testId": "1651ee8d-39e9-4e1a-8c1f-28a997f3f228",
+    "name": "Pixel Punk Add",
+    "version": "1.0.0",
+    "main": "index.html",
+    "manifestVersion": 2,
+    "requirements": {
+        "apps": [
+            {
+                "name": "Express",
+                "apiVersion": 1
+            }
+        ]
+    },
+    "entryPoints": [
+        {
+            "type": "panel",
+            "id": "panel1",
+            "main": "index.html",
+            "documentSandbox": "sandbox/code.js",
+            "label": {
+                "default": "Pixel Punk Tools"
+            }
+        }
+    ],
+    "icons": [{
+        "width": 48,
+        "height": 48,
+        "path": "icons/icon-48.png"
+    }]
+}
