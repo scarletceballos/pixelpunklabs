@@ -22,10 +22,10 @@ body {
 }
 
 .form-container {
-    width: 69%;
+    width: 75%;
     height: 15%;
     position: relative;
-    mix-blend-mode: lighten;
+    mix-blend-mode: color-burn;
     background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
     border-radius: 10px;
     overflow: hidden;
@@ -40,7 +40,15 @@ body {
     display: flex; /* Use flexbox for layout */
     align-items: center; /* Center items vertically */
     justify-content: space-between; /* Space out items */
-    padding: 0 10px; /* Add horizontal padding for spacing */
+    padding: 20px; /* Increased padding for better spacing */
+    color: grey;
+    mask: linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+-webkit-mask: 
+  radial-gradient(25px at 25px 25px, #0000 98%, #000) -25px -25px;
+mask-composite: xor;
+-webkit-mask-composite: source-out;
+    
 }
 
 .dropdown, .textbox, .button {
@@ -56,9 +64,11 @@ body {
 }
 
 .textbox {
-    flex-grow: 1; /* Allow the textbox to grow and take available space */
-    margin: 0 10px; /* Add margin for spacing */
-    height: 61px;
+    flex: 1; /* Changed from flex-grow to flex for better control */
+    margin: 0 20px; /* Increased margin for better spacing */
+    min-height: 61px; /* Changed from fixed height to min-height */
+    display: flex; /* Added to help input fill the container */
+    align-items: center; /* Center the input vertically */
 }
 
 .button {
@@ -72,8 +82,11 @@ input[type="text"], select {
     background: transparent; /* Make background transparent for input and select */
     border: none; /* Remove default border */
     border-radius: 5px;
-    padding: 10px;
+    padding: 0 15px; /* Adjusted padding for better text alignment */
     font-size: 16px; /* Font size */
+    font-family: inherit; /* Added to match the site's font */
+    color: inherit; /* Added to match the site's color scheme */
+    box-sizing: border-box; /* Added to include padding in width/height calculation */
 }
 
 button {
@@ -177,3 +190,52 @@ button {
     left: 1063px;
     top: 340px;
 }
+
+.typing-effect {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid;
+    animation: 
+      typing 3s steps(30) infinite,
+      blink 0.5s step-end infinite alternate;
+  }
+  
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    30% {
+      width: 100%;
+    }
+    60% {
+      width: 100%;
+    }
+    90%, 100% {
+      width: 0;
+    }
+  }
+  
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  /* For multiple text strings, use content property with data attributes */
+  .typing-effect::before {
+    content: attr(data-text);
+    animation: textChange 12s linear infinite;
+  }
+  
+  @keyframes textChange {
+    0%, 33% {
+      content: "First text string...";
+    }
+    34%, 66% {
+      content: "Second text string...";
+    }
+    67%, 100% {
+      content: "Third text string...";
+    }
+  }
