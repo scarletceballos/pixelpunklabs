@@ -1,0 +1,6 @@
+name = "ai-image-generator"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+HUGGING_FACE_API_KEY = "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"
