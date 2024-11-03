@@ -35,9 +35,14 @@ p {
 }
 
 .form-container {
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 75%;
     height: 15%;
-    position: center;
+    /* position: center; */
     mix-blend-mode: color-burn;
     background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
     border-radius: 10px;
@@ -57,11 +62,10 @@ p {
     color: grey;
     mask: linear-gradient(#000 0 0) padding-box,
     linear-gradient(#000 0 0);
--webkit-mask: 
-  radial-gradient(25px at 25px 25px, #0000 98%, #000) -25px -25px;
-mask-composite: xor;
--webkit-mask-composite: source-out;
-    
+    -webkit-mask: 
+    radial-gradient(25px at 25px 25px, #0000 98%, #000) -25px -25px;
+    mask-composite: xor;
+    -webkit-mask-composite: source-out; 
 }
 
 .dropdown, .textbox, .button {
@@ -116,6 +120,7 @@ button {
 }
 
 .image-container {
+    z-index: -1;
     position: fixed;
     top: 0;
     left: 0;
@@ -212,43 +217,7 @@ button {
     top: 340px;
 }
 
-.typing-effect {
-    width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 12s steps(60) infinite;
-    margin: 0 auto;
-    max-width: fit-content;
-}
-
-@keyframes typing {
-0% {
-    width: 0;
-}
-30% {
-    width: 100%;
-}
-60% {
-    width: 100%;
-}
-90%, 100% {
-    width: 0;
-}
-}
-
-@keyframes blink {
-50% {
-    border-color: transparent;
-}
-}
-
-/* For multiple text strings, use content property with data attributes */
-.typing-effect::before {
-content: attr(data-text);
-animation: textChange 12s linear infinite;
-}
-
-@keyframes textChange {
+/* @keyframes textChange {
 0%, 33% {
     content: "First text string...";
 }
@@ -258,7 +227,7 @@ animation: textChange 12s linear infinite;
 67%, 100% {
     content: "Third text string...";
 }
-}
+} */
 
 /* Animation for rotating gears */
 @keyframes rotate {
@@ -294,6 +263,17 @@ animation: textChange 12s linear infinite;
     animation-duration: 9s; /* Customize for the second gear */
 }
 
+.typing-effect {
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Animation for typing and backspacing */
 
 .typing-effect {
     width: 0;
@@ -306,49 +286,61 @@ animation: textChange 12s linear infinite;
 }
 
 @keyframes typing {
-    0%, 15% { width: 0 }
-    20%, 45% { width: 100% }
-    50%, 65% { width: 0 }
-    70%, 95% { width: 100% }
-    100% { width: 0 }
+    0%, 30% { width: 0; }
+    40%, 70% { width: 100%; }
+    80%, 100% { width: 0; }
 }
 
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+@keyframes textRotation1 {
+    0%, 12.5% { content: "Ah, Inspector, what would you have the lens reveal?"; }
+    12.5%, 25% { content: "Care to describe what you suspect lurks in the shadows, Detective?"; }
+    25%, 37.5% { content: "What would you have me uncover from the night’s secrets?"; }
+    37.5%, 50% { content: "Enter your vision, my dear sleuth, and let us unravel this twisted tale."; }
+    50%, 62.5% { content: "So then, what curious sight have you stumbled upon?"; }
+    62.5%, 75% { content: "Tell me, Inspector... what sinister artifact would you have me uncover?"; }
+    75%, 87.5% { content: "Go on, reveal what whispers to you from the shadows."; }
+    87.5%, 100% { content: "And so, Detective, where would you direct our gaze?"; }
+}
+
+@keyframes textRotation2 {
+    0%, 10% { content: "The vision materializes… behold the revelation of shadows."; }
+    10%, 20% { content: "A glimpse into the unknown… the scene unfolds before your eyes."; }
+    20%, 30% { content: "The clock ticks... your imagination is now reality."; }
+    30%, 40% { content: "An image from the ether emerges… the mystery begins to take shape."; }
+    40%, 50% { content: "From the depths of intrigue, an illustration arises… what secrets does it hold?"; }
+    50%, 60% { content: "The canvas awakens… a tale captured in form and light."; }
+    60%, 70% { content: "Like clockwork, your vision is realized… prepare to be astonished."; }
+    70%, 80% { content: "The gears align, and the image appears… a portal into your narrative."; }
+    80%, 90% { content: "A revelation from the aether… the essence of your inquiry is now tangible."; }
+    90%, 100% { content: "As if summoned from dreams, your creation stands revealed… what tales will it tell?"; }
+}
+
+/* Apply the typing effect */
+.typing-effect {
+    animation: typing 5s steps(30, end) infinite alternate, blink 0.75s step-end infinite;
+}
+
+/* For multiple text strings, use content property with data attributes */
 .typing-effect::before {
+    content: ""; /* Ensure it is empty initially */
+    animation-duration: 20s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Apply specific animation per rotation */
+.rotation1 .typing-effect::before {
+    animation: textRotation1 20s linear infinite;
     content: "The vision materializes… behold the revelation of shadows.";
     animation: textRotation 50s linear infinite;
 }
 
-@keyframes textRotation {
-    0%, 10% {
-        content: "The vision materializes… behold the revelation of shadows.";
-    }
-    10%, 20% {
-        content: "A glimpse into the unknown… the scene unfolds before your eyes.";
-    }
-    20%, 30% {
-        content: "The clock ticks... your imagination is now reality.";
-    }
-    30%, 40% {
-        content: "An image from the ether emerges… the mystery begins to take shape.";
-    }
-    40%, 50% {
-        content: "From the depths of intrigue, an illustration arises… what secrets does it hold?";
-    }
-    50%, 60% {
-        content: "The canvas awakens… a tale captured in form and light.";
-    }
-    60%, 70% {
-        content: "Like clockwork, your vision is realized… prepare to be astonished.";
-    }
-    70%, 80% {
-        content: "The gears align, and the image appears… a portal into your narrative.";
-    }
-    80%, 90% {
-        content: "A revelation from the aether… the essence of your inquiry is now tangible.";
-    }
-    90%, 100% {
-        content: "As if summoned from dreams, your creation stands revealed… what tales will it tell?";
-    }
+.rotation2 .typing-effect::before {
+    animation: textRotation2 20s linear infinite;
 }
 
 
@@ -397,6 +389,70 @@ animation: textChange 12s linear infinite;
     transform: translateX(100%);
     background-image: url('images/Door_R.png');
 }
+
+.loading .slide-overlay.left {
+    transform: translateX(0); /* Show overlay */
+}
+
+.loading .slide-overlay.right {
+    transform: translateX(0); /* Show overlay */
+}
+
+/* Loading bar container */
+.loading-bar-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 20px;
+    background-image: url("images/flowers.avif");    
+    /* background-color: #f0f0f0; */
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.loading .loading-bar-container {
+    opacity: 1; /* Show loading bar when loading starts */
+}
+
+/* Loading bar itself */
+.loading-bar {
+    width: 0%;
+    height: 100%;
+    background-image: url("images/flowers.avif");
+    background-size: 40px 40px;
+    animation: loading 3s 0.5s linear forwards; /* Delayed start */
+}
+
+@keyframes loading {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* Optional class for any final exit animations */
+.loaded .slide-overlay {
+    opacity: 0; /* Fade overlays out smoothly */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.loaded .loading-bar-container {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.output {
+    z-index: 999;
+    width: 80%;
+    height: 80%;
+    opacity: 0.5;
+    background: #D9D9D9;
+    border-radius: 20px;
+    margin: auto;
+} 
 
 .loading .door.left {
     transform: translateX(0);
