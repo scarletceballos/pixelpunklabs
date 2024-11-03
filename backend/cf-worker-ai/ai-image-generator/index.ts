@@ -1,8 +1,3 @@
-# First, let's check which file we're modifying
-cat index.ts
-
-# Now, let's update the file with the new changes
-cat > index.ts << 'EOL'
 export default {
   async fetch(request: Request, env: any) {
     try {
@@ -51,25 +46,37 @@ export default {
               });
             }
             throw new Error(error.error || "API Error");
-          }
+          }          
 
           // Return image page
           return new Response(`
             <!DOCTYPE html>
             <html>
               <body style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px;">
-                <h1>Generated Image</h1>
-                <img src="data:image/jpeg;base64,${
-                  Buffer.from(await response.arrayBuffer()).toString('base64')
-                }" style="max-width: 100%; height: auto;">
-                <br>
-                <p><strong>Enhanced Prompt:</strong> ${enhancedPrompt}</p>
-                <a href="/" style="color: blue; text-decoration: underline; display: inline-block; margin-top: 20px;">← Generate another</a>
+                <h1>Steampunk Asset Generator</h1>
+                <form method="POST" style="margin-top: 20px;">
+                  <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px;">Generation Type:</label>
+                    <select name="generationType" id="generationType" style="padding: 8px; width: 200px;">
+                      <option value="image">2D Image</option>
+                      <option value="3d">3D Model</option>
+                    </select>
+                  </div>
+                  
+                  <input type="text" name="prompt" required
+                    placeholder="Enter your prompt" 
+                    style="width: 300px; padding: 8px; margin-right: 10px;">
+                  <button type="submit" 
+                    style="padding: 8px 16px; background: #4CAF50; color: white; border: none; border-radius: 4px;">
+                    Generate Asset
+                  </button>
+                </form>
+                <p style="color: #666; margin-top: 10px;">Note: All prompts will be enhanced with steampunk elements</p>
               </body>
             </html>
           `, {
             headers: { "Content-Type": "text/html" }
-          });
+          });          
         } else if (generationType === "3d") {
           // Return 3D viewer page
           return new Response(`
@@ -131,8 +138,7 @@ export default {
       `, {
         headers: { "Content-Type": "text/html" },
         status: 500
-      });
+      });      
     }
   }
 };
-EOL
