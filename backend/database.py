@@ -1,67 +1,108 @@
-from pymongo import MongoClient
-from pymongo.collection import Collection
-from datetime import datetime
-import os
+from pymongo import MongoClient, ASCENDING
 from dotenv import load_dotenv
+import os
 import certifi
+from datetime import datetime
+from bson import ObjectId
 
+# Load environment variables
 load_dotenv()
 
-# MongoDB Configuration
-MONGO_URI = os.getenv("MONGODB_URI")
-DB_NAME = os.getenv("DB_NAME", "steampunk_app")
-
-client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
-db = client[DB_NAME]
-
-# Collections
-users_collection = db.users
-images_collection = db.images
-sessions_collection = db.sessions
-
-# Create indexes
-users_collection.create_index("email", unique=True)
-images_collection.create_index([("user_id", 1), ("created_at", -1)])
-sessions_collection.create_index("expires_at", expireAfterSeconds=0)
-
 class DatabaseManager:
-    @staticmethod
-    async def create_user(user_data: dict) -> dict:
+    def __init__(self):
+        self.client = None
+        self.db = None
+        self.connect()
+
+    def connect(self):
+        try:
+            uri = os.getenv('MONGODB_URI')
+            if not uri:
+                uri = "mongodb+srv://AfshanZubia:AkmZubi18018*@hacknjit2024.6ykxs.mongodb.net/?retryWrites=true&w=majority"
+            
+            self.client = MongoClient(
+                uri,
+                tlsCAFile=certifi.where(),
+                serverSelectionTimeoutMS=5000
+            )
+            
+            self.db = self.client.hacknjit2024
+            
+            # Create indexes
+            self.db.users.create_index([("email", ASCENDING)], unique=True)
+            self.db.users.create_index([("username", ASCENDING)], unique=True)
+            
+            print("✅ Connected to MongoDB!")
+            
+        except Exception as e:
+            print(f"❌ Error connecting to database: {e}")
+            raise e
+
+    async def create_user(self, user_data: dict) -> dict:
         user_data["created_at"] = datetime.utcnow()
-        user_data["images"] = []
-        result = users_collection.insert_one(user_data)
-        user_data["_id"] = result.inserted_id
-        return user_data
+        result = self.db.users.insert_one(user_data)
+        return {**user_data, "id": str(result.inserted_id)}
 
-    @staticmethod
-    async def get_user_by_email(email: str) -> dict:
-        return users_collection.find_one({"email": email})
+    async def get_user_by_email(self, email: str) -> dict:
+        return self.db.users.find_one({"email": email})
 
-    @staticmethod
-    async def get_user_by_id(user_id: str) -> dict:
-        return users_collection.find_one({"_id": user_id})
+    async def get_user_by_username(self, username: str) -> dict:
+        return self.db.users.find_one({"username": username})
 
-    @staticmethod
-    async def store_image(image_data: dict) -> dict:
+    async def save_generated_image(self, image_data: dict) -> dict:
         image_data["created_at"] = datetime.utcnow()
-        result = images_collection.insert_one(image_data)
-        image_data["_id"] = result.inserted_id
+        result = self.db.images.insert_one(image_data)
+        return {**image_data, "id": str(result.inserted_id)}
+
+    async def get_user_images(self, user_id: str) -> list:
+        return list(self.db.images.find({"user_id": user_id}))
+
+# Create database instance
+db_manager = DatabaseManager()
+
+if __name__ == "__main__":
+    # Test the connection
+    if db_manager.db is not None:
+        try:
+            # Try to create a test document
+            test_collection = db_manager.db.test
+            result = test_collection.insert_one({"test": "connection"})
+            print("Successfully wrote to database!")
+            # Clean up
+            test_collection.delete_one({"_id": result.inserted_id})
+        except Exception as e:
+            print(f"Error testing database write: {e}")
+    else:
+        print("Failed to connect to database")
+
+# Example of how to use the database in other files:
+from database import db_manager
+
+def example_operations():
+    try:
+        # Create a new collection
+        users = db_manager.db.users
         
-        # Update user's images array
-        users_collection.update_one(
-            {"_id": image_data["user_id"]},
-            {"$push": {"images": str(result.inserted_id)}}
+        # Create (Insert)
+        new_user = {
+            "name": "Test User",
+            "email": "test@example.com"
+        }
+        result = users.insert_one(new_user)
+        print(f"Created user with id: {result.inserted_id}")
+        
+        # Read (Find)
+        user = users.find_one({"email": "test@example.com"})
+        print(f"Found user: {user}")
+        
+        # Update
+        users.update_one(
+            {"email": "test@example.com"},
+            {"$set": {"name": "Updated Name"}}
         )
-        return image_data
-
-    @staticmethod
-    async def get_user_images(user_id: str) -> list:
-        return list(images_collection.find(
-            {"user_id": user_id}
-        ).sort("created_at", -1))
-
-    @staticmethod
-    async def store_session(session_data: dict) -> dict:
-        result = sessions_collection.insert_one(session_data)
-        session_data["_id"] = result.inserted_id
-        return session_data 
+        
+        # Delete
+        users.delete_one({"email": "test@example.com"})
+        
+    except Exception as e:
+        print(f"Error: {e}")

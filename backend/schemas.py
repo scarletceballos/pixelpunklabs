@@ -1,64 +1,51 @@
-from pydantic import BaseModel, EmailStr, Field
-from typing import List, Optional
+from pydantic import BaseModel, EmailStr
+from typing import List, Optional, Union
 from datetime import datetime
-from bson import ObjectId
 
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_validators__(cls):
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid ObjectId")
-        return ObjectId(v)
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        field_schema.update(type="string")
-
+# User schemas
 class UserBase(BaseModel):
-    email: EmailStr
     username: str
+    email: EmailStr
 
 class UserCreate(UserBase):
     password: str
 
 class UserInDB(UserBase):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    hashed_password: str
+    id: str
     created_at: datetime
-    images: List[str] = []
-    
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+
+# Image schemas
+class ImageGenerationRequest(BaseModel):
+    prompt: str
+    style: str = "steampunk"
+    num_images: int = 1
 
 class ImageBase(BaseModel):
     prompt: str
-    style: str = "steampunk"
+    user_id: str
     image_url: str
 
 class ImageCreate(ImageBase):
-    user_id: PyObjectId
+    pass
 
 class ImageInDB(ImageBase):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    user_id: PyObjectId
+    id: str
     created_at: datetime
 
-    class Config:
-        allow_population_by_field_name = True
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str}
+class ImageGenerationResponse(BaseModel):
+    success: bool
+    image_data: Optional[str]
+    image_id: Optional[str]
+    error: Optional[str]
 
-class SessionData(BaseModel):
-    user_id: PyObjectId
-    token: str
-    expires_at: datetime
+# Asset Generation schemas
+class GenerationRequest(BaseModel):
+    prompt: str
+    type: str = "image"  # "image" or "3d"
+    style_preferences: Optional[dict] = None
 
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {ObjectId: str} 
+class GenerationResponse(BaseModel):
+    asset_url: str
+    type: str
+    prompt: str
+    metadata: Optional[dict] = None 
