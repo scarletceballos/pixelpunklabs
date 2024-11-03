@@ -375,30 +375,38 @@ animation: textChange 12s linear infinite;
     }
 }
 
-.slide-overlay {
+.door {
     position: fixed;
     width: 50%;
     height: 100vh;
     top: 0;
-    background: #6E4B3B;
     z-index: 1000;
-    transform: translateX(-100%);
     transition: transform 0.8s ease-in-out;
+    background-size: cover;
+    background-position: center;
 }
 
-.slide-overlay.left {
+.door.left {
     left: 0;
+    transform: translateX(-100%);
+    background-image: url('images/Door_L.png');
 }
 
-.slide-overlay.right {
+.door.right {
     right: 0;
     transform: translateX(100%);
+    background-image: url('images/Door_R.png');
 }
 
-.loading .slide-overlay.left {
+.loading .door.left {
     transform: translateX(0);
 }
 
-.loading .slide-overlay.right {
+.loading .door.right {
     transform: translateX(0);
+}
+
+/* Optional: Add door opening/closing sound effect */
+.door {
+    transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
