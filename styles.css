@@ -15,6 +15,15 @@ body {
     color: white;
 }
 
+p {
+    max-width: 1000px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0rem;
+    padding-bottom: 2rem;;
+    line-height: 1.6;
+}
+
 #title {
     font-family: 'Special Elite', cursive; /* Fallback to cursive if the font fails to load */
     font-weight: 400;
@@ -24,7 +33,7 @@ body {
 .form-container {
     width: 75%;
     height: 15%;
-    position: relative;
+    position: center;
     mix-blend-mode: color-burn;
     background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
     border-radius: 10px;
@@ -195,47 +204,109 @@ button {
     width: 0;
     overflow: hidden;
     white-space: nowrap;
-    border-right: 2px solid;
-    animation: 
-      typing 3s steps(30) infinite,
-      blink 0.5s step-end infinite alternate;
-  }
-  
-  @keyframes typing {
-    0% {
-      width: 0;
+    animation: typing 12s steps(60) infinite;
+    margin: 0 auto;
+    max-width: fit-content;
+}
+
+@keyframes typing {
+    0%, 15% { width: 0 }
+    20%, 45% { width: 100% }
+    50%, 65% { width: 0 }
+    70%, 95% { width: 100% }
+    100% { width: 0 }
+}
+
+.typing-effect::before {
+    content: "";
+    animation: textRotation 1s linear infinite;
+}
+
+
+.typing-effect::before {
+    content: "The vision materializes… behold the revelation of shadows.";
+    animation: textRotation 50s linear infinite;
+}
+
+@keyframes textRotation {
+    0%, 10% {
+        content: "The vision materializes… behold the revelation of shadows.";
     }
-    30% {
-      width: 100%;
+    10%, 20% {
+        content: "A glimpse into the unknown… the scene unfolds before your eyes.";
     }
-    60% {
-      width: 100%;
+    20%, 30% {
+        content: "The clock ticks... your imagination is now reality.";
+    }
+    30%, 40% {
+        content: "An image from the ether emerges… the mystery begins to take shape.";
+    }
+    40%, 50% {
+        content: "From the depths of intrigue, an illustration arises… what secrets does it hold?";
+    }
+    50%, 60% {
+        content: "The canvas awakens… a tale captured in form and light.";
+    }
+    60%, 70% {
+        content: "Like clockwork, your vision is realized… prepare to be astonished.";
+    }
+    70%, 80% {
+        content: "The gears align, and the image appears… a portal into your narrative.";
+    }
+    80%, 90% {
+        content: "A revelation from the aether… the essence of your inquiry is now tangible.";
     }
     90%, 100% {
-      width: 0;
+        content: "As if summoned from dreams, your creation stands revealed… what tales will it tell?";
     }
-  }
-  
-  @keyframes blink {
-    50% {
-      border-color: transparent;
+}
+
+.random-text {
+    display: inline-block;
+    color: #DBD2CE;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Special Elite', cursive;
+    animation: fadeIn 0.5s ease-in;
+    width: 100%; /* Add this to ensure full width */
+    text-align: left; /* Add this for better text alignment */
+    padding: 10px; /* Add padding for better appearance */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-  }
-  
-  /* For multiple text strings, use content property with data attributes */
-  .typing-effect::before {
-    content: attr(data-text);
-    animation: textChange 12s linear infinite;
-  }
-  
-  @keyframes textChange {
-    0%, 33% {
-      content: "First text string...";
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    34%, 66% {
-      content: "Second text string...";
-    }
-    67%, 100% {
-      content: "Third text string...";
-    }
-  }
+}
+
+.slide-overlay {
+    position: fixed;
+    width: 50%;
+    height: 100vh;
+    top: 0;
+    background: #6E4B3B;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.8s ease-in-out;
+}
+
+.slide-overlay.left {
+    left: 0;
+}
+
+.slide-overlay.right {
+    right: 0;
+    transform: translateX(100%);
+}
+
+.loading .slide-overlay.left {
+    transform: translateX(0);
+}
+
+.loading .slide-overlay.right {
+    transform: translateX(0);
+}
