@@ -14,7 +14,13 @@ from schemas import ImageGenerationRequest, ImageGenerationResponse
 from deepaiscraper import generate_image
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/*": {
+        "origins": ["*"],  # Be careful with this in production
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # Load environment variables
 CLOUDFLARE_API_TOKEN = os.getenv("CLOUDFLARE_API_TOKEN")
@@ -192,4 +198,4 @@ async def health_check():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5001)
