@@ -1,0 +1,26 @@
+{
+    "id": "steampunk-toolkit",
+    "name": "SteampunkDesignSuite",
+    "version": "1.0.0",
+    "manifest_version": 1,
+    "title": "Steampunk Design Suite",
+    "requirements": {
+      "apps": ["Express"]
+    },
+    "host": {
+      "app": "Express",
+      "minVersion": "1.0.0"
+    },
+    "entryPoints": [
+      {
+        "type": "panel",
+        "id": "steampunk-panel",
+        "main": "index.html",
+        "label": "Steampunk Tools"
+      }
+    ],
+    "icons": {
+      "light": "./assets/icon-light.png",
+      "dark": "./assets/icon-dark.png"
+    }
+  }
