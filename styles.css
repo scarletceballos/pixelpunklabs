@@ -43,7 +43,7 @@ p {
     width: 75%;
     height: 15%;
     /* position: center; */
-    mix-blend-mode: color-burn;
+    mix-blend-mode: normal;
     background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
     border-radius: 10px;
     overflow: hidden;
@@ -52,7 +52,7 @@ p {
     background-image: url('images/flowers.avif');
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0.475);
-    background-blend-mode: overlay;
+    background-blend-mode: soft-light; /* Changed from overlay */
     background-size: cover;
     margin: auto;
     display: flex; /* Use flexbox for layout */
@@ -127,17 +127,18 @@ button {
 }
 
 .image-container {
-    z-index: -1;
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 1;
-    pointer-events: none; /* Allows clicking through to elements below */
+    filter: blur(3px); /* Add blur to background images */
+    pointer-events: none;
+}
+
+.image-container img {
+    transition: filter 0.3s ease;
 }
 
 /* First .image-large for 1.png */
