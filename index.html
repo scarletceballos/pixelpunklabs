@@ -121,18 +121,19 @@
             }
 
             document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'visible') {
-        // Reset door state when returning to page
-        document.body.classList.remove('loading');
-    }
-});
+                if (document.visibilityState === 'visible') {
+                    // Reset door state when returning to page
+                    document.body.classList.remove('loading');
+                }
+            });
 
-window.addEventListener('pageshow', function(event) {
-    if (event.persisted) {
-        // Reset if page is loaded from cache (back button)
-        document.body.classList.remove('loading');
-    }
-});
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    // Reset if page is loaded from cache (back button)
+                    document.body.classList.remove('loading');
+                }
+            });
+            
             // Start typing the first text
             typeText(texts[currentIndex]);
 

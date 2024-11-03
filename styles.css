@@ -127,6 +127,7 @@ button {
 }
 
 .image-container {
+    opacity: 0.5;
     z-index: -1;
     position: fixed;
     top: 0;
@@ -455,11 +456,22 @@ button {
     z-index: 999;
     width: 80%;
     height: 80%;
-    opacity: 0.5;
-    background: #D9D9D9;
+    opacity: 1; /* Changed from 1000 to 1 for valid opacity value */
+    position: relative;
+    background-color: #D9D9D9;
     border-radius: 20px;
     margin: auto;
-} 
+    overflow: hidden;
+    display: flex; /* Use flexbox to center the image */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+}
+
+#generatedImage {
+    max-width: 90%; /* Set the max width of the image to 90% of its container */
+    max-height: 90%; /* Set the max height of the image to 90% of its container */
+    height: auto; /* Maintain aspect ratio */
+}
 
 .loading .door.left {
     transform: translateX(0);
