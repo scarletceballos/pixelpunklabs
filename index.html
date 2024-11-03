@@ -120,6 +120,19 @@
                 }, backspacingSpeed);
             }
 
+            document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // Reset door state when returning to page
+        document.body.classList.remove('loading');
+    }
+});
+
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        // Reset if page is loaded from cache (back button)
+        document.body.classList.remove('loading');
+    }
+});
             // Start typing the first text
             typeText(texts[currentIndex]);
 
@@ -131,6 +144,11 @@
                 // Simulate loading time (3 seconds)
                 setTimeout(() => {
                     document.body.classList.add('loaded'); // Optional class for final animations
+                    /* const queryText = document.getElementById('queryInput').value;
+                    const encodedQuery = encodeURIComponent(queryText); */
+
+                    document.body.classList.add('loading')
+
                     setTimeout(() => {
                         window.location.href = 'output.html'; // Redirect smoothly
                     }, 500); // Small delay for exit animation
