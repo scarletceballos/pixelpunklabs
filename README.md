@@ -4,7 +4,7 @@
 
 ## Project Description
 
-Pixel Punk Labs is a revolutionary web-based platform that seamlessly blends the rich aesthetic of steampunk with cutting-edge technology in digital asset creation. Our platform empowers artists and creators to generate, secure, and distribute stunning steampunk-themed digital assets while leveraging the power of AI assistance and blockchain security.
+Pixel Punk Labs is a web-based platform that seamlessly blends the rich aesthetic of steampunk with cutting-edge technology in digital asset creation. Our platform empowers artists and creators to generate, secure, and distribute stunning steampunk-themed digital assets while leveraging the power of AI assistance and blockchain security.
 
 Imagine a digital workshop where brass pipes hiss with steam, gears turn in perfect synchronization, and every click resonates with the satisfying sound of mechanical precision. This is the immersive experience of Pixel Punk Labs, where creativity meets technological innovation in a uniquely Victorian-industrial setting.
 
