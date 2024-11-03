@@ -1,3 +1,23 @@
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px rgba(0, 0, 0, 0.05) solid;
+}
+
+/* First .image-large for 1.png */
+.image-large {
+    width: 910.16px;
+    height: 883.71px;
+    left: -277.69px;
+    top: -86px;
+    position: absolute;
+    transform: rotate(24.28deg);
+    transform-origin: 0 0;
+}
+
 /* .image-small-blurred for 2.png */
 .image-small-blurred {
     width: 261.87px;
@@ -70,5 +90,3 @@
     left: 1063px;
     top: 340px;
 }
-
-

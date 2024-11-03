@@ -15,7 +15,7 @@
     <body>
         <div id="header">
             <h1 id="title">PixelPunk Labs</h1>
-            <p class="typing-effect"></p>
+            <p>Enter your vision, my dear inspector, and let us unravel this twisted tale.</p>
         </div>
         <!-- Form Container -->
         <form class="form-container">
@@ -27,18 +27,12 @@
                 </select>
             </div>
             <div class="textbox">
-<<<<<<< HEAD
                 <input type="text" placeholder="Enter your query">
-=======
-                <input type="text" id="queryInput" class="random-text">
->>>>>>> 76914db40be21a80dfca0f3b23418a65675c69db
             </div>
             <div class="button">
                 <button type="submit">Submit</button>
             </div>
         </form>
-        <div class="slide-overlay left"></div>
-<div class="slide-overlay right"></div>
         <div class="image-container">
             <img class="image-large" src="images/1.png" /> <!-- Matches .image-large -->
             <img class="image-small-blurred" src="images/2.png" /> <!-- Matches .image-small-blurred -->
@@ -50,39 +44,5 @@
             <img class="image-large" src="images/7.png" /> <!-- Matches another .image-large -->
             <img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
         </div>
-        <script>
-            const placeholderTexts = [
-                "Describe your vision, and watch it materialize...",
-                "What mysteries shall we unveil today?",
-                "Paint your dreams with words...",
-                "Whisper your secrets to the machine...",
-                "Let your imagination guide the way...",
-                "Speak your reality into existence...",
-                "What wonders shall we create?",
-                "Share your story with the void...",
-                "Transform thought into imagery...",
-                "Begin your journey with a word..."
-            ];
-
-            const input = document.getElementById('queryInput');
-            input.placeholder = placeholderTexts[Math.floor(Math.random() * placeholderTexts.length)];
-
-            input.addEventListener('focus', () => {
-                input.placeholder = placeholderTexts[Math.floor(Math.random() * placeholderTexts.length)];
-            });
-        </script>
-        <!-- Add this before closing </body> tag -->
-<script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent form from submitting normally
-        document.body.classList.add('loading'); // Add loading class to trigger animations
-        
-        // Simulate loading time (3 seconds)
-        setTimeout(() => {
-            // Your form submission logic here
-            document.body.classList.remove('loading');
-        }, 3000);
-    });
-    </script>
     </body>
 </html>
