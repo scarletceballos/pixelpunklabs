@@ -1,7 +1,7 @@
 body {
     /*width: 1200px;*/
     height: 100vh;    
-    background: url("images/background_1.png") lightgray 50% / cover no-repeat;
+    background: url("images/background_1.png") lightgray 70% / cover no-repeat;
     mix-blend-mode: hard-light;
     background-size: cover; /* or "contain" depending on what you want */
     background-position: center center;
@@ -12,7 +12,11 @@ body {
     font-family: 'IM Fell English', serif; /* Fallback to serif if the font fails to load */
     font-size: xx-large;
     font-weight: 300;
-    color: white;
+    color: grey;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 p {
@@ -96,6 +100,10 @@ input[type="text"], select {
     font-family: inherit; /* Added to match the site's font */
     color: inherit; /* Added to match the site's color scheme */
     box-sizing: border-box; /* Added to include padding in width/height calculation */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 button {
@@ -108,12 +116,16 @@ button {
 }
 
 .image-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
-    border: 1px rgba(0, 0, 0, 0.05) solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    pointer-events: none; /* Allows clicking through to elements below */
 }
 
 /* First .image-large for 1.png */
@@ -263,7 +275,7 @@ button {
 
 .random-text {
     display: inline-block;
-    color: #DBD2CE;
+    color: #522816;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     font-family: 'Special Elite', cursive;
     animation: fadeIn 0.5s ease-in;
