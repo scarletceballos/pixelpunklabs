@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3D Steampunk Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin: 0;">
+    <div style="position: fixed; top: 10px; left: 10px; z-index: 100;">
+        <input type="text" id="prompt" placeholder="Enter object to generate" style="padding: 8px;">
+        <button onclick="generateModel()" style="padding: 8px;">Generate</button>
+    </div>
+    <script>
+        let scene, camera, renderer, controls;
+
+        // Initialize Three.js scene
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            camera.position.z = 5;
+        }
+
+        // Function to enhance prompt with steampunk elements
+        function enhancePrompt(userPrompt) {
+            const steampunkElements = [
+                "brass and copper materials",
+                "mechanical gears",
+                "steam-powered mechanisms",
+                "Victorian era aesthetics",
+                "ornate metalwork",
+                "pressure gauges",
+                "exposed machinery"
+            ];
+            return `steampunk-themed ${userPrompt} with ${steampunkElements.join(', ')}`;
+        }
+
+        // Function to generate model based on prompt
+        window.generateModel = function() {
+            const userPrompt = document.getElementById('prompt').value || 'gear';
+            const enhanced = enhancePrompt(userPrompt);
+            console.log('Enhanced prompt:', enhanced);
+            
+            // Clear existing model
+            while(scene.children.length > 0){ 
+                scene.remove(scene.children[0]); 
+            }
+            
+            // Add new model
+            const model = createSteampunkModel(userPrompt);
+            scene.add(model);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (scene.children.length > 0) {
+                scene.children.forEach(child => {
+                    if (child.type === "Group") {
+                        child.rotation.x += 0.01;
+                        child.rotation.y += 0.01;
+                    }
+                });
+            }
+            renderer.render(scene, camera);
+        }
+
+        // Initialize and start animation
+        init();
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>

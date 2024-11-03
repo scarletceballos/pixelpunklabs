@@ -6,6 +6,7 @@ from functools import wraps
 from datetime import datetime, timedelta
 import base64
 import httpx
+import os
 from typing import Optional
 
 from database import db_manager
