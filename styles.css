@@ -200,42 +200,79 @@ button {
       typing 3s steps(30) infinite,
       blink 0.5s step-end infinite alternate;
   }
-  
-  @keyframes typing {
+
+@keyframes typing {
+0% {
+    width: 0;
+}
+30% {
+    width: 100%;
+}
+60% {
+    width: 100%;
+}
+90%, 100% {
+    width: 0;
+}
+}
+
+@keyframes blink {
+50% {
+    border-color: transparent;
+}
+}
+
+/* For multiple text strings, use content property with data attributes */
+.typing-effect::before {
+content: attr(data-text);
+animation: textChange 12s linear infinite;
+}
+
+@keyframes textChange {
+0%, 33% {
+    content: "First text string...";
+}
+34%, 66% {
+    content: "Second text string...";
+}
+67%, 100% {
+    content: "Third text string...";
+}
+}
+
+/* Animation for rotating gears */
+@keyframes rotate {
     0% {
-      width: 0;
+        transform: rotate(0deg); /* Start at 0 degrees */
     }
-    30% {
-      width: 100%;
+    100% {
+        transform: rotate(360deg); /* Rotate full circle */
     }
-    60% {
-      width: 100%;
-    }
-    90%, 100% {
-      width: 0;
-    }
-  }
-  
-  @keyframes blink {
-    50% {
-      border-color: transparent;
-    }
-  }
-  
-  /* For multiple text strings, use content property with data attributes */
-  .typing-effect::before {
-    content: attr(data-text);
-    animation: textChange 12s linear infinite;
-  }
-  
-  @keyframes textChange {
-    0%, 33% {
-      content: "First text string...";
-    }
-    34%, 66% {
-      content: "Second text string...";
-    }
-    67%, 100% {
-      content: "Third text string...";
-    }
-  }
+}
+
+/* Apply rotation animation to all gear images */
+.image-large, .image-small-blurred, .image-rotation {
+    animation: rotate 10s linear infinite; /* Apply rotation animation */
+    transform-origin: center; /* Ensure rotation occurs around the center */
+}
+
+/* Optionally, you can specify different animation durations for different images */
+.image-large {
+    animation-duration: 12s; /* Slower rotation for larger gears */
+}
+
+.image-small-blurred {
+    animation-duration: 8s; /* Faster rotation for smaller blurred gear */
+}
+
+/* If you want to customize further based on index or other properties */
+.image-rotation:nth-of-type(1) {
+    animation-duration: 10s; /* Customize for the first gear */
+}
+
+.image-rotation:nth-of-type(2) {
+    animation-duration: 9s; /* Customize for the second gear */
+}
+
+
+/* For loading page */
