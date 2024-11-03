@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -15,7 +14,7 @@
     <body>
         <div id="header">
             <h1 id="title">PixelPunk Labs</h1>
-            <p class="typing-effect"></p>
+            <p class="typing-effect rotation1"></p> <!-- Change rotation1 to rotation2 as needed -->
         </div>
         <!-- Form Container -->
         <form class="form-container">
@@ -33,6 +32,11 @@
                 <button type="submit">Submit</button>
             </div>
         </form>
+        <div class="slide-overlay left"></div>
+        <div class="slide-overlay right"></div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
         <div class="door left"></div>
         <div class="door right"></div>
         <div class="image-container">
@@ -68,19 +72,70 @@
             });
         </script>
         <!-- Add this before closing </body> tag -->
-<script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent form from submitting normally
-        document.body.classList.add('loading'); // Add loading class to trigger animations
-        
-        // Simulate loading time (3 seconds)
-        setTimeout(() => {
-        // Open new tab and redirect
-        window.open('your-redirect-url.html', '_blank');
-            // Your form submission logic here
-            document.body.classList.remove('loading');
-        }, 3000);
-    });
-    </script>
+        <script>
+            const texts = [
+                "Ah, Inspector, what would you have the lens reveal?",
+                "Care to describe what you suspect lurks in the shadows, Detective?",
+                "What would you have me uncover from the night’s secrets?",
+                "Enter your vision, my dear sleuth, and let us unravel this twisted tale.",
+                "So then, what curious sight have you stumbled upon?",
+                "Tell me, Inspector... what sinister artifact would you have me uncover?",
+                "Go on, reveal what whispers to you from the shadows.",
+                "And so, Detective, where would you direct our gaze?"
+            ];
+
+            let currentIndex = 0;
+            const typingSpeed = 50; // Typing speed in milliseconds
+            const pauseDuration = 2000; // Pause duration between texts
+            const backspacingSpeed = 30; // Backspacing speed in milliseconds
+            const typingEffectElement = document.querySelector('.typing-effect');
+
+            function typeText(text) {
+                typingEffectElement.textContent = ''; // Clear previous text
+                let index = 0;
+
+                const typingInterval = setInterval(() => {
+                    typingEffectElement.textContent += text.charAt(index);
+                    index++;
+
+                    if (index === text.length) {
+                        clearInterval(typingInterval);
+                        setTimeout(() => backspaceText(text), pauseDuration);
+                    }
+                }, typingSpeed);
+            }
+
+            function backspaceText(text) {
+                let index = text.length;
+
+                const backspacingInterval = setInterval(() => {
+                    typingEffectElement.textContent = text.slice(0, index);
+                    index--;
+
+                    if (index < 0) {
+                        clearInterval(backspacingInterval);
+                        currentIndex = (currentIndex + 1) % texts.length; // Move to next text
+                        setTimeout(() => typeText(texts[currentIndex]), pauseDuration);
+                    }
+                }, backspacingSpeed);
+            }
+
+            // Start typing the first text
+            typeText(texts[currentIndex]);
+
+            // Form submission handling
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                document.body.classList.add('loading'); // Show overlays and loading bar
+                
+                // Simulate loading time (3 seconds)
+                setTimeout(() => {
+                    document.body.classList.add('loaded'); // Optional class for final animations
+                    setTimeout(() => {
+                        window.location.href = 'output.html'; // Redirect smoothly
+                    }, 500); // Small delay for exit animation
+                }, 3500); // Matches loading bar animation
+            });
+        </script>
     </body>
 </html>
