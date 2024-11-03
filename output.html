@@ -17,7 +17,7 @@
             <p class="typing-effect rotation2"></p> <!-- Change rotation1 to rotation2 as needed -->
         </div>
         <div class="output">
-            <img id="generatedImage" alt="Generated artwork" src="images/milkshake.png"/>
+            <img id="generatedImage" alt="Generated artwork" src=""/>
         </div>
         <div class="image-container">
             <img class="image-large" src="images/1.png" /> <!-- Matches .image-large -->
@@ -31,6 +31,35 @@
             <img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
         </div>
     </body>
+    <!-- page2.html -->
+    <script>
+        function displayImage(query) {
+            const imageElement = document.getElementById('generatedImage');
+            
+            // Define your image mapping
+            const imageMap = {
+                'milkshake': 'images/milkshake.png',
+                'batman': 'images/batman.jpeg',
+                'ship': 'images/ship.jpeg',
+            };
+
+            console.log("Query:", query); // Debugging line
+            
+            // Set the image source based on the query
+            if (imageMap[query.toLowerCase()]) {
+                imageElement.src = imageMap[query.toLowerCase()];
+            } else {
+                imageElement.src = 'images/milkshake.png';
+            }
+        }
+
+        window.onload = function() {
+            const query = localStorage.getItem('imageQuery');
+            if (query) {
+                displayImage(query);
+            }
+        }
+    </script>
     <!-- <script>
         // Retrieve the base64 image data from localStorage
         const imageData = localStorage.getItem("generatedImage");

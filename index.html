@@ -17,8 +17,8 @@
             <p class="typing-effect rotation1"></p> <!-- Change rotation1 to rotation2 as needed -->
         </div>
         <!-- Form Container -->
-        <form class="form-container">
-            <div class="dropdown">
+        <form class="form-container" id="query">
+            <div class="dropdown" id="select">
                 <select>
                     <option value="">Select</option>
                     <option value="1">Image</option>
@@ -133,7 +133,7 @@
                     document.body.classList.remove('loading');
                 }
             });
-            
+
             // Start typing the first text
             typeText(texts[currentIndex]);
 
@@ -148,10 +148,23 @@
                 window.location.href = "output.html";
             }
 
+            function submitQuery() {
+                const query = document.getElementById('queryInput').value;
+                // Store the query in localStorage
+                localStorage.setItem('imageQuery', query);
+                // Redirect to the second page
+                window.location.href = 'output.html';
+            }
+
             // Form submission handling
             document.querySelector('form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 document.body.classList.add('loading'); // Show overlays and loading bar
+
+                const query = document.getElementById('queryInput').value; // Get the query from the input
+                localStorage.setItem('imageQuery', query); // Store the query
+
+                this.reset();
                 
                 // Simulate loading time (3 seconds)
                 setTimeout(() => {
@@ -160,6 +173,6 @@
                     generateImage(); // Small delay for exit animation
                 }, 3500); // Matches loading bar animation
             });
-        </script>
+        </script>     
     </body>
 </html>
