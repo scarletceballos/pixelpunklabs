@@ -346,6 +346,8 @@ animation: textChange 12s linear infinite;
     }
 }
 
+
+/*random text*/
 .random-text {
     display: inline-block;
     color: #522816;
