@@ -294,6 +294,17 @@ animation: textChange 12s linear infinite;
     animation-duration: 9s; /* Customize for the second gear */
 }
 
+
+.typing-effect {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 8s steps(60) infinite; /* Increased from 5s to 8s */
+    margin: 0 auto;
+    max-width: fit-content;
+    color: white;
+}
+
 @keyframes typing {
     0%, 15% { width: 0 }
     20%, 45% { width: 100% }
@@ -301,12 +312,6 @@ animation: textChange 12s linear infinite;
     70%, 95% { width: 100% }
     100% { width: 0 }
 }
-
-.typing-effect::before {
-    content: "";
-    animation: textRotation 1s linear infinite;
-}
-
 
 .typing-effect::before {
     content: "The vision materializes… behold the revelation of shadows.";
