@@ -21,9 +21,9 @@
         <form class="form-container">
             <div class="dropdown">
                 <select>
-                    <option value="">Select an option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
+                    <option value="">Select</option>
+                    <option value="1">Image</option>
+                    <option value="2">3D Object</option>
                 </select>
             </div>
             <div class="textbox">
@@ -75,6 +75,8 @@
         
         // Simulate loading time (3 seconds)
         setTimeout(() => {
+        // Open new tab and redirect
+        window.open('your-redirect-url.html', '_blank');
             // Your form submission logic here
             document.body.classList.remove('loading');
         }, 3000);
