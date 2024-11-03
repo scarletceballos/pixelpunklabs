@@ -1,30 +1,33 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles.css">
-        <script src="https://cdn.adobe.io/adobe-express-addon/latest/express-addon.js"></script>
-        <meta
-            name="description"
-            content="Create and choose steampunk designs in real time using this add-on!"
-        />
-        <meta name="keywords" content="Adobe, Express, Add-On, JavaScript, Document Sandbox Runtime" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </head>
-    <body>
-        <div id="app">
-            <div class="steampunk-tools">
-                <div class="tool-selection" id="template">
-                    <!--Template tools-->
-                </div>
-                <div class="tool-selection" id="effects">
-                    <!--Effect tools-->
-                </div>
-                <div class="tool-selection" id="elements">
-                    <!--Element tools-->
-                </div>
-            </div>
+<html>
+<head>
+  <title>Steampunk Design Suite</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="tool-panel">
+    <section id="templates">
+      <h2>Steampunk Templates</h2>
+      <div class="template-grid">
+        <!-- Template thumbnails -->
+      </div>
+    </section>
+    
+    <section id="tools">
+      <h2>Addon Tools</h2>
+      <div class="tool-controls">
+        <div id="brass-polisher">
+          <h3>Brass Polisher</h3>
+          <input type="range" min="0" max="100" id="polish-intensity">
         </div>
-        <script src="index.js"></script>
-    </body>
+        <div id="steam-infuser">
+          <h3>Steam Infuser</h3>
+          <input type="range" min="0" max="100" id="steam-density">
+        </div>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="index.js"></script>
+</body>
 </html>
