@@ -1,0 +1,179 @@
+body {
+    /*width: 1200px;*/
+    height: 100vh;    
+    background: url("images/background_1.png") lightgray 50% / cover no-repeat;
+    mix-blend-mode: hard-light;
+    background-size: cover; /* or "contain" depending on what you want */
+    background-position: center center;
+    background-repeat: no-repeat, repeat;  
+    text-align:center;
+    margin:auto;
+    padding:0;
+    font-family: 'IM Fell English', serif; /* Fallback to serif if the font fails to load */
+    font-size: xx-large;
+    font-weight: 300;
+    color: white;
+}
+
+#title {
+    font-family: 'Special Elite', cursive; /* Fallback to cursive if the font fails to load */
+    font-weight: 400;
+    color: white;
+}
+
+.form-container {
+    width: 69%;
+    height: 15%;
+    position: relative;
+    mix-blend-mode: lighten;
+    background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px rgba(0, 0, 0, 0.04) solid;
+    backdrop-filter: blur(7px);
+    background-image: url('images/flowers.avif');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.475);
+    background-blend-mode: overlay;
+    background-size: cover;
+    margin: auto;
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out items */
+    padding: 0 10px; /* Add horizontal padding for spacing */
+}
+
+.dropdown, .textbox, .button {
+    background: #DBD2CE;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    position: relative; /* Use relative positioning */
+}
+
+.dropdown {
+    width: 128px;
+    height: 61px;
+}
+
+.textbox {
+    flex-grow: 1; /* Allow the textbox to grow and take available space */
+    margin: 0 10px; /* Add margin for spacing */
+    height: 61px;
+}
+
+.button {
+    width: 108px;
+    height: 61px;
+}
+
+input[type="text"], select {
+    width: 100%;
+    height: 100%;
+    background: transparent; /* Make background transparent for input and select */
+    border: none; /* Remove default border */
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px; /* Font size */
+}
+
+button {
+    width: 100%;
+    height: 100%;
+    background: #DBD2CE;
+    border: none; /* Remove default border */
+    border-radius: 5px;
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px rgba(0, 0, 0, 0.05) solid;
+}
+
+/* First .image-large for 1.png */
+.image-large {
+    width: 910.16px;
+    height: 883.71px;
+    left: -277.69px;
+    top: -86px;
+    position: absolute;
+    transform: rotate(24.28deg);
+    transform-origin: 0 0;
+}
+
+/* .image-small-blurred for 2.png */
+.image-small-blurred {
+    width: 261.87px;
+    height: 270.60px;
+    left: 828px;
+    top: 497.59px;
+    position: absolute;
+    transform: rotate(-26.19deg);
+    transform-origin: 0 0;
+    box-shadow: 3px 3px 3px;
+}
+
+/* Default .image-rotation for 3.png */
+.image-rotation {
+    width: 363px;
+    height: 335px;
+    left: 272.19px;
+    top: 194px;
+    position: absolute;
+    transform: rotate(22.31deg);
+    transform-origin: 0 0;
+}
+
+/* Specific .image-rotation for 4.png */
+.image-rotation:nth-of-type(5) {
+    width: 363px;
+    height: 335px;
+    left: 240.19px;
+    top: 476px;
+}
+
+/* Specific .image-rotation for 5.png */
+.image-rotation:nth-of-type(6) {
+    width: 389.70px;
+    height: 444.83px;
+    left: 546px;
+    top: 629.16px;
+    transform: rotate(-34.93deg);
+}
+
+/* Specific .image-rotation for 8.png */
+.image-rotation:nth-of-type(7) {
+    width: 490.03px;
+    height: 451.78px;
+    left: 411.52px;
+    top: 277px;
+}
+
+/* Specific .image-rotation for 6.png */
+.image-rotation:nth-of-type(8) {
+    width: 676px;
+    height: 677px;
+    left: 1063px;
+    top: 340px;
+}
+
+/* Specific .image-rotation for 9.png */
+.image-rotation:nth-of-type(9) {
+    width: 268.61px;
+    height: 222.56px;
+    left: 490.50px;
+    top: 625px;
+    transform: rotate(22.31deg);
+}
+
+/* Another .image-large for 7.png */
+.image-large:nth-of-type(8) {
+    width: 676px;
+    height: 677px;
+    left: 1063px;
+    top: 340px;
+}

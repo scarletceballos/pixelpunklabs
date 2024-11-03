@@ -1,0 +1,74 @@
+/* .image-small-blurred for 2.png */
+.image-small-blurred {
+    width: 261.87px;
+    height: 270.60px;
+    left: 828px;
+    top: 497.59px;
+    position: absolute;
+    transform: rotate(-26.19deg);
+    transform-origin: 0 0;
+    box-shadow: 3px 3px 3px;
+}
+
+/* Default .image-rotation for 3.png */
+.image-rotation {
+    width: 363px;
+    height: 335px;
+    left: 272.19px;
+    top: 194px;
+    position: absolute;
+    transform: rotate(22.31deg);
+    transform-origin: 0 0;
+}
+
+/* Specific .image-rotation for 4.png */
+.image-rotation:nth-of-type(5) {
+    width: 363px;
+    height: 335px;
+    left: 240.19px;
+    top: 476px;
+}
+
+/* Specific .image-rotation for 5.png */
+.image-rotation:nth-of-type(6) {
+    width: 389.70px;
+    height: 444.83px;
+    left: 546px;
+    top: 629.16px;
+    transform: rotate(-34.93deg);
+}
+
+/* Specific .image-rotation for 8.png */
+.image-rotation:nth-of-type(7) {
+    width: 490.03px;
+    height: 451.78px;
+    left: 411.52px;
+    top: 277px;
+}
+
+/* Specific .image-rotation for 6.png */
+.image-rotation:nth-of-type(8) {
+    width: 676px;
+    height: 677px;
+    left: 1063px;
+    top: 340px;
+}
+
+/* Specific .image-rotation for 9.png */
+.image-rotation:nth-of-type(9) {
+    width: 268.61px;
+    height: 222.56px;
+    left: 490.50px;
+    top: 625px;
+    transform: rotate(22.31deg);
+}
+
+/* Another .image-large for 7.png */
+.image-large:nth-of-type(8) {
+    width: 676px;
+    height: 677px;
+    left: 1063px;
+    top: 340px;
+}
+
+

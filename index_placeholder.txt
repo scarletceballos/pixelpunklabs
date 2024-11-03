@@ -1,0 +1,8 @@
+<img class="image-small-blurred" src="images/2.png" /> <!-- Matches .image-small-blurred -->
+<img class="image-rotation" src="images/3.png" /> <!-- Matches .image-rotation -->
+<img class="image-rotation" src="images/4.png" /> <!-- Matches .image-rotation:nth-of-type(5) -->
+<img class="image-rotation" src="images/5.png" /> <!-- Matches .image-rotation:nth-of-type(6) -->
+<img class="image-rotation" src="images/8.png" /> <!-- Matches .image-rotation:nth-of-type(7) -->
+<img class="image-rotation" src="images/6.png" /> <!-- Matches .image-rotation:nth-of-type(8) -->
+<img class="image-large" src="images/7.png" /> <!-- Matches another .image-large -->
+<img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
