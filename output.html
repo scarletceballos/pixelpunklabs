@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PixelPunk Labs</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1 id="title">PixelPunk Labs</h1>
+            <p>Enter your vision, my dear inspector, and let us unravel this twisted tale.</p>
+        </div>
+        <!-- Form Container -->
+        <form class="form-container">
+            <div class="dropdown">
+                <select>
+                    <option value="">Select an option</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                </select>
+            </div>
+            <div class="textbox">
+                <input type="text" placeholder="Enter your query">
+            </div>
+            <div class="button">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+        <div class="image-container">
+            <img class="image-large" src="images/1.png" /> <!-- Matches .image-large -->
+            <img class="image-small-blurred" src="images/2.png" /> <!-- Matches .image-small-blurred -->
+            <img class="image-rotation" src="images/3.png" /> <!-- Matches .image-rotation -->
+            <img class="image-rotation" src="images/4.png" /> <!-- Matches .image-rotation:nth-of-type(5) -->
+            <img class="image-rotation" src="images/5.png" /> <!-- Matches .image-rotation:nth-of-type(6) -->
+            <img class="image-rotation" src="images/8.png" /> <!-- Matches .image-rotation:nth-of-type(7) -->
+            <img class="image-rotation" src="images/6.png" /> <!-- Matches .image-rotation:nth-of-type(8) -->
+            <img class="image-large" src="images/7.png" /> <!-- Matches another .image-large -->
+            <img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
+        </div>
+    </body>
+</html>
