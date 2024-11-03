@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -17,7 +16,9 @@
             <h1 id="title">PixelPunk Labs</h1>
             <p class="typing-effect rotation2"></p> <!-- Change rotation1 to rotation2 as needed -->
         </div>
-        <div class="output"></div>
+        <div class="output">
+            <img id="generatedImage" alt="Generated artwork" style="max-width: 100%; height: auto;" src="images/milkshake.png"/>
+        </div>
         <div class="image-container">
             <img class="image-large" src="images/1.png" /> <!-- Matches .image-large -->
             <img class="image-small-blurred" src="images/2.png" /> <!-- Matches .image-small-blurred -->
@@ -30,4 +31,16 @@
             <img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
         </div>
     </body>
+    <!-- <script>
+        // Retrieve the base64 image data from localStorage
+        const imageData = localStorage.getItem("generatedImage");
+    
+        // Set the src attribute if image data exists
+        if (imageData) {
+            document.getElementById("generatedImage").src = imageData;
+        } else {
+            // Optionally handle the case where imageData is not available
+            document.getElementById("generatedImage").alt = "No generated image found.";
+        }
+    </script>     -->
 </html>

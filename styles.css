@@ -88,12 +88,12 @@ p {
     align-items: center; /* Center the input vertically */
 }
 
-.button {
+/* .button {
     width: 108px;
     height: 61px;
-}
+} */
 
-input[type="text"], select {
+input[type="text"], select, input[type=password] {
     width: 100%;
     height: 100%;
     background: transparent; /* Make background transparent for input and select */
@@ -110,13 +110,20 @@ input[type="text"], select {
     user-select: text;
 }
 
+.button {
+    width: 100%;
+    max-width: 200px;
+}
+
 button {
     width: 100%;
-    height: 100%;
+    height: 50px;
     background: #DBD2CE;
-    border: none; /* Remove default border */
+    border: none;
     border-radius: 5px;
-    cursor: pointer; /* Change cursor to pointer on hover */
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .image-container {
@@ -465,4 +472,47 @@ button {
 /* Optional: Add door opening/closing sound effect */
 .door {
     transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.login-container {
+    z-index: 3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    padding: 20px;
+    mix-blend-mode: color-burn;
+    background: linear-gradient(0deg, #6E4B3B 0%, #6E4B3B 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px rgba(0, 0, 0, 0.04) solid;
+    backdrop-filter: blur(7px);
+    background-image: url('images/flowers.avif');
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.475);
+    background-blend-mode: overlay;
+    background-size: cover;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Spacing between input section and button */
+}
+
+.login {
+    display: flex;
+    gap: 10px; /* Space between each input field */
+    width: 100%;
+}
+
+#username, #password {
+    background: #DBD2CE;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    flex: 1; /* Allow inputs to take equal width */
+    height: 50px; /* Adjust height of input fields */
+    padding: 0 15px; /* Padding inside the input */
+    font-size: 16px;
+    border: none;
 }

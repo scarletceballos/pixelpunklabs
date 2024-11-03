@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PixelPunk Labs</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1 id="title">PixelPunk Labs</h1>
+            <p>Login to Account</p>
+        </div>
+        <!-- Login Container -->
+        <form class="login-container">
+            <div class="login">
+                <input type="text" id="username" placeholder="Username">
+                <!-- <input type="text" id="email" placeholder="Email"> -->
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <div class="button">
+                <button type="submit">Submit</button>
+            </div>
+            <p id="errorMessage" style="color: red; display: none;">Invalid username or password</p>
+        </form>        
+        <div class="slide-overlay left"></div>
+        <div class="slide-overlay right"></div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="door left"></div>
+        <div class="door right"></div>
+        <div class="image-container">
+            <img class="image-large" src="images/1.png" /> <!-- Matches .image-large -->
+            <img class="image-small-blurred" src="images/2.png" /> <!-- Matches .image-small-blurred -->
+            <img class="image-rotation" src="images/3.png" /> <!-- Matches .image-rotation -->
+            <img class="image-rotation" src="images/4.png" /> <!-- Matches .image-rotation:nth-of-type(5) -->
+            <img class="image-rotation" src="images/5.png" /> <!-- Matches .image-rotation:nth-of-type(6) -->
+            <img class="image-rotation" src="images/8.png" /> <!-- Matches .image-rotation:nth-of-type(7) -->
+            <img class="image-rotation" src="images/6.png" /> <!-- Matches .image-rotation:nth-of-type(8) -->
+            <img class="image-large" src="images/7.png" /> <!-- Matches another .image-large -->
+            <img class="image-rotation" src="images/9.png" /> <!-- Matches .image-rotation:nth-of-type(9) -->
+        </div>
+        <script>
+            // Form submission handling
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const inputUsername = document.getElementById('username').value;
+                const inputPassword = document.getElementById('password').value;
+
+                // Hardcoded credentials
+                const validUsername = 'user';
+                const validPassword = 'password';
+                const validEmail = 'user@example.com';
+
+                // Validation
+                if (inputUsername === validUsername && inputPassword === validPassword) {
+                    document.body.classList.add('loading'); // Show overlays and loading bar
+                    
+                    // Simulate loading time (3 seconds)
+                    setTimeout(() => {
+                        // Proceed with fetch if validation is successful
+                        fetch('http://10.203.233.42:8787/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                username: inputUsername,
+                                password: inputPassword
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.body.classList.add('loaded'); // Optional class for final animations
+                            
+                            // Redirect smoothly after a delay if fetch is successful
+                            setTimeout(() => {
+                                window.location.href = 'index.html';
+                            }, 500); // Small delay for exit animation
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            // Handle error on fetch
+                            document.body.classList.remove('loading');
+                        });
+                    }, 3500); // Matches loading bar animation
+                } else {
+                    // Display error message if validation fails
+                    const errorMessage = document.getElementById('errorMessage');
+                    errorMessage.style.display = 'block';
+                }
+            });
+        </script>
+    </body>
+</html>
