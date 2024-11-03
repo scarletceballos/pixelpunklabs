@@ -1,165 +1,121 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>3D Steampunk Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Steampunk Gear Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+        body { margin: 0; }
+        #info {
+            position: fixed;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: Arial;
+            text-shadow: 1px 1px 1px black;
+        }
+    </style>
 </head>
-<body style="margin: 0;">
-    <div style="position: fixed; top: 10px; left: 10px; z-index: 100;">
-        <input type="text" id="prompt" placeholder="Enter object to generate" style="padding: 8px;">
-        <button onclick="generateModel()" style="padding: 8px;">Generate</button>
-    </div>
+<body>
+    <div id="info">Steampunk Gear Mechanism<br>Click and drag to rotate</div>
     <script>
-        let scene, camera, renderer, controls;
+        let scene, camera, renderer, model;
 
-        // Initialize Three.js scene
         function init() {
             scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x222222);
+
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer();
+            camera.position.z = 5;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
             // Add lights
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
-            const pointLight = new THREE.PointLight(0xffffff, 1);
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
+            const light1 = new THREE.DirectionalLight(0xffaa44, 1);
+            light1.position.set(1, 1, 1);
+            scene.add(light1);
 
-            camera.position.z = 5;
-        }
+            const light2 = new THREE.DirectionalLight(0x44aaff, 0.5);
+            light2.position.set(-1, -1, -1);
+            scene.add(light2);
 
-        // Simplify the prompt enhancement
-        function enhancePrompt(userPrompt) {
-            return `steampunk themed: ${userPrompt}`;
-        }
+            scene.add(new THREE.AmbientLight(0x404040));
 
-        // Function to generate model based on prompt
-        window.generateModel = function() {
-            const userPrompt = document.getElementById('prompt').value || 'gear';
-            const enhanced = enhancePrompt(userPrompt);
-            console.log('Enhanced prompt:', enhanced);
-            
-            // Clear existing model
-            while(scene.children.length > 0){ 
-                scene.remove(scene.children[0]); 
-            }
-            
-            // Add new model
-            const model = createSteampunkModel(userPrompt);
-            scene.add(model);
+            // Load the model
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'steampunk_gears.glb', // Your model file
+                function (gltf) {
+                    model = gltf.scene;
+                    scene.add(model);
+                },
+                undefined,
+                function (error) {
+                    console.error(error);
+                }
+            );
+
+            // Add mouse controls
+            let isDragging = false;
+            let previousMousePosition = {
+                x: 0,
+                y: 0
+            };
+
+            renderer.domElement.addEventListener('mousedown', (e) => {
+                isDragging = true;
+            });
+
+            renderer.domElement.addEventListener('mousemove', (e) => {
+                if (isDragging && model) {
+                    const deltaMove = {
+                        x: e.offsetX - previousMousePosition.x,
+                        y: e.offsetY - previousMousePosition.y
+                    };
+
+                    model.rotation.y += deltaMove.x * 0.01;
+                    model.rotation.x += deltaMove.y * 0.01;
+                }
+
+                previousMousePosition = {
+                    x: e.offsetX,
+                    y: e.offsetY
+                };
+            });
+
+            renderer.domElement.addEventListener('mouseup', (e) => {
+                isDragging = false;
+            });
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            if (scene.children.length > 0) {
-                scene.children.forEach(child => {
-                    if (child.type === "Group") {
-                        child.rotation.x += 0.01;
-                        child.rotation.y += 0.01;
+            
+            if (model) {
+                // Rotate some gears continuously
+                model.children.forEach((child, index) => {
+                    if (index % 2 === 0) {
+                        child.rotation.z += 0.01;
+                    } else {
+                        child.rotation.z -= 0.01;
                     }
                 });
             }
+
             renderer.render(scene, camera);
         }
 
-        // Initialize and start animation
         init();
         animate();
 
-        // Handle window resizing
-        window.addEventListener('resize', onWindowResize, false);
-
-        function onWindowResize() {
+        window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        // Add the createSteampunkModel function here
-        function createSteampunkModel(prompt) {
-            const group = new THREE.Group();
-            const keywords = prompt.toLowerCase().split(' ');
-            
-            // Base object based on prompt
-            if (keywords.includes('hairclip') || keywords.includes('clip') || keywords.includes('pin')) {
-                // Create hairclip base
-                const clipCurve = new THREE.CatmullRomCurve3([
-                    new THREE.Vector3(-1, 0, 0),
-                    new THREE.Vector3(-0.5, 0.2, 0),
-                    new THREE.Vector3(0, 0, 0),
-                    new THREE.Vector3(0.5, -0.2, 0),
-                    new THREE.Vector3(1, 0, 0)
-                ]);
-                const clipGeometry = new THREE.TubeGeometry(clipCurve, 32, 0.1, 8, false);
-                const clipMaterial = new THREE.MeshStandardMaterial({
-                    color: 0xb87333,
-                    metalness: 0.8,
-                    roughness: 0.2
-                });
-                const clip = new THREE.Mesh(clipGeometry, clipMaterial);
-                group.add(clip);
-
-            } else if (keywords.includes('bottle') || keywords.includes('flask')) {
-                // Create bottle body
-                const bodyGeometry = new THREE.CylinderGeometry(0.3, 0.3, 1, 16);
-                const bodyMaterial = new THREE.MeshStandardMaterial({
-                    color: 0xb87333,
-                    metalness: 0.8,
-                    roughness: 0.2
-                });
-                const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-                group.add(body);
-
-                // Add neck
-                const neckGeometry = new THREE.CylinderGeometry(0.1, 0.15, 0.3, 16);
-                const neck = new THREE.Mesh(neckGeometry, bodyMaterial);
-                neck.position.y = 0.65;
-                group.add(neck);
-
-            } else {
-                // Default shape for unknown objects
-                const baseGeometry = new THREE.BoxGeometry(1, 0.5, 0.5);
-                const baseMaterial = new THREE.MeshStandardMaterial({
-                    color: 0xb87333,
-                    metalness: 0.8,
-                    roughness: 0.2
-                });
-                const base = new THREE.Mesh(baseGeometry, baseMaterial);
-                group.add(base);
-            }
-
-            // Add minimal steampunk decorations
-            addSteampunkDecorations(group);
-            return group;
-        }
-
-        function addSteampunkDecorations(model) {
-            // Add just one small gear
-            const gear = new THREE.Mesh(
-                new THREE.CylinderGeometry(0.15, 0.15, 0.05, 8),
-                new THREE.MeshStandardMaterial({ 
-                    color: 0xb87333,
-                    metalness: 0.8,
-                    roughness: 0.2
-                })
-            );
-            gear.position.set(0.5, 0, 0.1);
-            model.add(gear);
-
-            // Add one small pipe
-            const pipe = new THREE.Mesh(
-                new THREE.TorusGeometry(0.1, 0.02, 16, 32),
-                new THREE.MeshStandardMaterial({ 
-                    color: 0xb87333,
-                    metalness: 0.8,
-                    roughness: 0.2
-                })
-            );
-            pipe.position.set(-0.5, 0, 0.1);
-            model.add(pipe);
-        }
+        });
     </script>
 </body>
 </html> 
